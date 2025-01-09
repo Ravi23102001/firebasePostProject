@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "./Editpost.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useFetch } from "./../../hooks/useFetch";
 import Appsubmitbutton from "../../components/appsubmitbutton/Appsubmitbutton";
+import { useCRUDFn } from "../../hooks/useCRUDFn";
+import { toast } from "react-toastify";
+import "./Editpost.css";
 
 export default function Editpost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [validationError, setValidationError] = useState("");
-  const [modifiedField,setModifiedField] = useState({})
+  const [modifiedField, setModifiedField] = useState({})
+
+  const { updateDocument} = useCRUDFn('posts')
 
   const navigate = useNavigate();
 
@@ -22,32 +24,35 @@ export default function Editpost() {
     e.preventDefault();
 
     if (!title) {
-      setValidationError("Title should not be empty");
+      toast.error("Title should not be empty");
       return;
     }
     if (!content) {
-      setValidationError("Content should not be empty");
+      toast.error("Content should not be empty");
       return;
     }
-    setValidationError("");
-    console.log(modifiedField);
+    
+    updateDocument(post.id, modifiedField)
+    navigate('/')
+
   };
 
   useEffect(() => {
     setTitle(post.title)
     setContent(post.body)
-    
-  }, [post.title,post.body]);
+
+  }, [post.title, post.body]);
 
 
   const onTitleChange = (e) => {
     setTitle(e.target.value)
-    setModifiedField({...modifiedField,title:e.target.value})
+    setModifiedField({ ...modifiedField, title: e.target.value })
+    console.log(e.target.value)
   }
 
   const onContentChange = (e) => {
     setContent(e.target.value)
-    setModifiedField({...modifiedField,body:e.target.value})
+    setModifiedField({ ...modifiedField, body: e.target.value })
 
   }
 
@@ -72,22 +77,11 @@ export default function Editpost() {
           <textarea rows="5"
             className="form-control"
             value={content}
-            onChange={onContentChange }
+            onChange={onContentChange}
           />
         </div>
-        {validationError && (
-          <div className="alert alert-danger" role="alert">
-            {validationError}
-          </div>
-        )}
-        {/* {data.length !== 0 && (
-          <div className="alert alert-success" role="alert">
-            Post Edited Successfully!
-          </div>
-        )} */}
-        
-        <div className="float-end">
-          <Appsubmitbutton title="Edit"/>
+        <div className="text-end">
+          <Appsubmitbutton title="Save" />
         </div>
       </form>
     </div>

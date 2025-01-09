@@ -1,0 +1,8 @@
+.postCardRow {
+    justify-content: space-between;
+    row-gap: 20px;
+}
+
+.outer{
+    margin-top: 30px;
+}

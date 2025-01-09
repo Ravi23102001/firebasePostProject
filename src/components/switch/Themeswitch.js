@@ -10,26 +10,24 @@ export default function ThemeSwitch() {
 
 
   const switchTheme = () => {
-    if (theme === 'light') {
+    if (theme === 'lightMode') {
         dispatch({type:'DARK'})
-        document.body.style.backgroundColor = '#f2e9e6'
     } else {
         dispatch({type:'LIGHT'})
-        document.body.style.backgroundColor = '#e1e5ed'
     }
-    console.log(theme)
   }
 
   return (
-    <div className="container ">
-      <div className="form-check form-switch toggle">
+      <label className="switch toggle">
         <input
           className="form-check-input"
           type="checkbox"
           role="switch"
-          id="flexSwitchCheckDefault" onClick={switchTheme}
+          checked={theme === 'darkMode'}
+           onClick={switchTheme}
         />
-      </div>
-    </div>
+
+<span class="slider"></span>
+    </label>
   );
 }

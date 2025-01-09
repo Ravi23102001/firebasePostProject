@@ -6,6 +6,6 @@ export default function Appsubmitbutton({onClick,title}) {
 
   const {theme} = useThemeContext()
   return (
-    <button type='submit' onClick={onClick} className={`btn ${theme}btn`}>{title}</button>
+    <button type='submit' className="btn btn-primary" onClick={onClick} >{title}</button>
   )
 }

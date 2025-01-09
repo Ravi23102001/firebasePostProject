@@ -1,5 +1,6 @@
 import { getFirestore } from "@firebase/firestore";
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -15,3 +16,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth=getAuth(app)
+
+
+// setPersistence(auth, browserLocalPersistence)
+//   .then(() => {
+//     console.log("Session persistence set to local storage.");
+//     // Proceed with sign-in, for example:
+//     // return signInWithEmailAndPassword(auth, email, password);
+//   })
+//   .catch((error) => {
+//     console.error("Error setting persistence:", error);
+//   });

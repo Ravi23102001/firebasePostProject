@@ -1,34 +1,41 @@
-import React from "react";
-import "./Createpost.css";
-import { useState,useEffect } from "react";
+import React, { useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Appsubmitbutton from "../../components/appsubmitbutton/Appsubmitbutton";
+import {serverTimestamp } from "firebase/firestore";
+import { useCRUDFn } from "../../hooks/useCRUDFn";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext";
+import "./Createpost.css";
 
 export default function Createpost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [validationError, setValidationError] = useState("");
-
   const navigate = useNavigate()
-  
-  //const {data} = []
+  const { addDocument} = useCRUDFn('posts')
+  const {user}=useContext(AuthContext)
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!title) {
-      setValidationError("Title should not be empty");
+      toast.error("Title should not be empty");
       return
     }
     if (!content) {
-      setValidationError("Content should not be empty");
+      toast.error("Content should not be empty");
       return
     }
-    setValidationError("");
-    console.log({ title, body: content, userId:1});
+    if(content.length<=100){
+      toast.error("Content Character length must be greater 100");
+      return
+    }
+     addDocument({ title, body: content, userId:user?.uid, createdAt: serverTimestamp() })
+    navigate('/')
   };
 
-  
+
   return (
     <div className="outercontainer">
       <form onSubmit={handleSubmit}>
@@ -41,30 +48,23 @@ export default function Createpost() {
             className="form-control"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
           />
         </div>
         <div className="form-group">
           <label>
-            <h6>Content:</h6>
+            <h6>Description:</h6>
           </label>
           <textarea
             className="form-control"
             value={content}
+            placeholder="Description"
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
-        {validationError && (
-          <div className="alert alert-danger" role="alert">
-            {validationError}
-          </div>
-        )}
-        {/* {
-          data.length !== 0 && <div className="alert alert-success" role="alert">
-            Post Created Successfully!
-          </div>
-        } */}
-        <div className="float-end">
-          <Appsubmitbutton title="Create"/>
+       
+        <div className="text-end">
+          <Appsubmitbutton title="Create" />
         </div>
       </form>
     </div>

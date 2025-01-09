@@ -1,14 +1,52 @@
-
-.card {
-    margin: 10px !important;
-    /* background-color:#F2e9e6; */
+.postCard {
+    border-radius: 20px;
+    border: 1px solid hsl(var(--border)) !important;
+    max-width: calc(100% / 2 - 20px);
+    text-decoration: none;
+    background-color: hsl(var(--muted));
+    padding: 15px;
+    position: relative;
 }
 
-.lightcard {
-    background-color:#f2e9e6 !important;
+.cardHeader {
+    color: hsl(var(--foreground));
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-.darkcard {
-    background-color:#c3cee5 !important;
+.cardHeader small{
+    font-size: 14px;
+    color: hsl(var(--muted-foreground));
+}
 
+.cardHeader h5{
+    font-size: 34px;
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cardBody{
+    max-height: 300px;
+    overflow-y: auto;
+    margin-right: -15px;
+    padding-right: 15px;
+    color: hsl(var(--muted-foreground));
+}
+
+.notify{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    transform: translate(-30%, -30%);
+    border: 3px solid hsl(var(--background));
 }

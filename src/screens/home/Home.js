@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Post from "../../components/post/Post";
-import "./Home.css";
-import { useFetch } from "./../../hooks/useFetch";
-import { collection, getDocs } from 'firebase/firestore'
-import { db } from "../../firebase/config";
 import { useFetchCollection } from "../../hooks/useFetchCollection";
+import "./Home.css";
 
 
 export default function Home() {
-  const{document:posts}=useFetchCollection('posts') 
+  const { document } = useFetchCollection('posts')
+  const { data: posts, loading } = document
+  console.log(document, 'data')
 
   return (
-    <div className="container outer">
-      {posts &&
-        posts.map((post) => {
-          return <Post post={post} key={post.id} />;
-        })}
+    <div className="outer">
+      {loading && <h1>Loading...</h1>}
+      {posts && !loading &&
+        <div className="postCardRow row">
+          {posts.map((post) => {
+            return <Post post={post} key={post.id} />;
+          })}
+        </div>
+      }
     </div>
   );
 }
