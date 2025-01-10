@@ -13,14 +13,14 @@ code {
     monospace;
 }
 
-/* .btn-primary,
+.btn-primary,
 .btn-primary:focus,
 .btn-primary:active {
   background-color:hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;
   border: unset;
   box-shadow: unset;
-} */
+}
 
 
 .btn-primary:hover, .btn-primary:active, .btn-primary:visited{
