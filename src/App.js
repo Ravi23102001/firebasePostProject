@@ -14,7 +14,7 @@ import NotFoundPage from "./screens/NotFoundPage";
 import Trial from "./screens/Trial";
 import Testing from "./screens/Testing";
 import ProfilePage from "./screens/ProfilePage";
-// import UserDetails from "./screens/UserDetails";
+import UserDetails from "./screens/UserDetails";
 import './App.css'
 const OtherComponent = React.lazy(() => import('./screens/UserDetails'));
 
@@ -40,7 +40,7 @@ function App() {
               <Route path="/signup" element={!user ? <SignUp /> : <Navigate to='/' />} />
               <Route path="*" element={<NotFoundPage />} />
 
-              {/* <Route path="/trial" element={<Trial />}>
+              <Route path="/trial" element={<Trial />}>
                 <Route index element={<Login />} />
                 <Route path="testing" element={<Testing />} />
                 <Route path=":id" element={
@@ -49,7 +49,7 @@ function App() {
                   </React.Suspense>
                 } />
               </Route>
-                <Route path="/profile" element={<ProfilePage />} /> */}
+                <Route path="/profile" element={<ProfilePage />} />
             </Routes> : <h1>Loading...</h1>
           }
         </div>

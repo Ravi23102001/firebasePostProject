@@ -35,13 +35,13 @@ export default function Navbar() {
           </> :
             <button className="btn btn-primary" onClick={logOut}>LogOut</button>
           }
-          {/* <Link to="/trial">
+          <Link to="/trial">
               <h4>Trial Page</h4>
             </Link>
 
             <Link to="/profile">
               <h4>Profile Page</h4>
-            </Link> */}
+            </Link>
              <ThemeSwitch />
         </nav>
       </div>

@@ -2,32 +2,52 @@ import React from "react";
 
 import './Themeswitch.css';
 import { useThemeContext } from './../../hooks/useThemeContext';
+import { connect } from "react-redux";
+import { darkModeOn, lightModeOn } from "../../redux/action";
 
-export default function ThemeSwitch() {
+function ThemeSwitch(props) {
 
 
-  const {theme,dispatch} = useThemeContext()
+  const { theme, dispatch } = useThemeContext()
 
 
-  const switchTheme = () => {
-    if (theme === 'lightMode') {
-        dispatch({type:'DARK'})
+
+  const themeChanger = () => {
+    if (props.reduxTheme === 'lightMode') {
+      props.darkModeDispatch()
     } else {
-        dispatch({type:'LIGHT'})
+      props.lightModeDispatch()
     }
   }
 
   return (
-      <label className="switch toggle">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          role="switch"
-          checked={theme === 'darkMode'}
-           onClick={switchTheme}
-        />
+    <label className="switch toggle">
+      <input
+        className="form-check-input"
+        type="checkbox"
+        role="switch"
+        checked={props.reduxTheme === 'darkMode'}
+        //  onClick={switchTheme}
+        onClick={themeChanger}
+      />
 
-<span class="slider"></span>
+      <span className="slider"></span>
     </label>
   );
 }
+
+const mapStateToProp = (state) => {
+  return {
+    reduxTheme:state.themeReducer.theme
+  }
+  console.log(state)
+}
+
+const mapStateToDispatch = (dispatch) => {
+  return {
+    lightModeDispatch: () => dispatch(lightModeOn()),
+    darkModeDispatch: () => dispatch(darkModeOn())
+  }
+}
+
+export default connect(mapStateToProp, mapStateToDispatch)(ThemeSwitch)
